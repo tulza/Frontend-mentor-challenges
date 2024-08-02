@@ -1,7 +1,7 @@
 import { QRcode } from "./assets/img";
 import "./index.css";
 const QRCODECOMPONENT = () => {
-// you should never tailwind like this but for the sake of perfection against frontend mentor it is therefore acceptable.
+  // you should never tailwind like this but for the sake of perfection against frontend mentor it is therefore acceptable.
   return (
     <div className="bg-[#D5E1EF] w-dvw h-dvh grid place-content-center outfit">
       <div className="p-4 bg-white text-center rounded-2xl w-min flex flex-col items-center">
