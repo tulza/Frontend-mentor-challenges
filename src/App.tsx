@@ -4,6 +4,7 @@ import QRCODECOMPONENT from "./qr-code-component/QRCODECOMPONENT";
 import Home from "./home/Home";
 import { ArrowLeft } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Test from "./Template/Test";
 
 type Challange = { label: string; path: string; element: React.ReactNode };
 
@@ -17,6 +18,7 @@ function App() {
   return (
     <>
       <AnimatePresence mode="wait">
+        {/* back page */}
         {location.pathname !== "/" && (
           <div className="absolute z-[9999] flex w-full">
             <Link to="/">
@@ -36,6 +38,7 @@ function App() {
           {...mapChallanges.map((challange) => (
             <Route path={challange.path} element={challange.element} />
           ))}
+          <Route path="*" element={<Test />} />
         </Routes>
       </AnimatePresence>
     </>

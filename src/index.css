@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  --home-background: 169, 34%, 84%; /*hsl(169, 34%, 84%)*/
+  --home-highlight: 168, 95%, 30%; /*hsl(168, 95%, 30%)*/
+}
