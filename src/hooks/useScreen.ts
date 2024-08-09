@@ -15,5 +15,5 @@ export const useScreen = () => {
     });
   }, []);
 
-  return { screen };
+  return { width: screen.width, height: screen.height };
 };
