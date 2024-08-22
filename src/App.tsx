@@ -5,6 +5,7 @@ import Home from "./home/Home";
 import { ArrowLeft, Component, HomeIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Test from "./Template/Test";
+import LinkButton from "./common/LinkButton";
 
 type Challange = { label: string; path: string; element: React.ReactNode };
 
@@ -36,15 +37,15 @@ function App() {
       <div className="absolute bottom-4 z-[9999] flex w-dvw justify-center">
         <div className="flex gap-4 rounded-full border bg-white p-2">
           <Link to="/">
-            <button className="flex items-center rounded-full border bg-black/5 p-2 px-4 font-medium">
-              <HomeIcon size={20} strokeWidth={1.5} className="mr-2" />
-              home
-            </button>
+            <LinkButton
+              icon={<HomeIcon size={20} strokeWidth={1.5} className="mr-2" />}
+              label="home"
+            />
           </Link>
-          <button className="flex items-center rounded-full border bg-black/5 p-2 px-4 font-medium">
-            <Component size={20} strokeWidth={1.5} className="mr-2" />
-            Components
-          </button>
+          <LinkButton
+            icon={<Component size={20} strokeWidth={1.5} className="mr-2" />}
+            label="Components"
+          />
         </div>
       </div>
       <Routes key={location.pathname} location={location}>

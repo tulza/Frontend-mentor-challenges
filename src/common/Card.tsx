@@ -9,8 +9,8 @@ const Card = ({ ...props }: PropsWithChildren<CardProps>) => {
   return (
     <div
       className={cn(
-        "text-bold relative rounded-lg border border-black bg-[hsl(var(--home-background))] p-3 text-xl text-black",
-        "before:absolute before:inset-0 before:top-2 before:-z-10 before:h-full before:w-full before:rounded-lg before:border-black before:bg-[hsl(var(--home-highlight))] before:outline before:outline-1",
+        "text-bold bg-homebg relative rounded-lg border p-3 text-xl text-white/70",
+        "before:bg-homehl before:absolute before:inset-0 before:top-2 before:-z-10 before:h-full before:w-full before:rounded-lg",
         props.className
       )}
     >

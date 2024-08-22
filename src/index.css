@@ -3,6 +3,25 @@
 @tailwind utilities;
 
 html {
-  --home-background: 169, 34%, 84%; /*hsl(169, 34%, 84%)*/
-  --home-highlight: 168, 95%, 30%; /*hsl(168, 95%, 30%)*/
+  --grayish: 0, 0%, 95%; /* hsl(0, 0%, 95%)*/
+  --home-highlight: 169, 34%, 84%; /*hsl(169, 34%, 84%)*/
+  --home-background: 168, 95%, 30%; /*hsl(168, 95%, 30%)*/
+
+  background: hsl(var(--home-background));
+}
+
+.Newbie {
+  @apply bg-blue-500;
+}
+.Junior {
+  @apply bg-green-500;
+}
+.Intermediate {
+  @apply bg-yellow-500;
+}
+.Advanced {
+  @apply bg-orange-500;
+}
+.Guru {
+  @apply bg-red-500;
 }
