@@ -25,3 +25,7 @@ html {
 .Guru {
   @apply bg-red-500;
 }
+
+.grid128 {
+  mask-image: url(assets/grid64.svg);
+}
