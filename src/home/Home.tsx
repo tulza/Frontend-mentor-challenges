@@ -1,14 +1,9 @@
-import { Link } from "react-router-dom";
-import { mapChallanges } from "../App";
 import useMouse from "@react-hook/mouse-position";
-import { AnimatePresence, circOut, motion, motionValue, useTransform } from "framer-motion";
-import { useScreen } from "../hooks/useScreen";
-import { CameraOff } from "lucide-react";
-import DifficultyTag from "../common/Tag";
-import LinkButton from "../common/LinkButton";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
+import "./index.css";
 
-const Home = () => {
+const Home = ({ children }: { children: React.ReactNode }) => {
   // const { width } = useScreen();
   const containerRef = useRef(null);
   const mouse = useMouse(containerRef, {
@@ -31,7 +26,7 @@ const Home = () => {
   return (
     <>
       <motion.div
-        className="absolute flex h-dvh w-dvw select-none items-center justify-center gap-4 bg-slate-900"
+        className="absolute flex h-dvh w-dvw select-none items-center justify-center gap-4"
         ref={containerRef}
       >
         <div className="grid128 absolute flex h-dvh w-dvw overflow-hidden bg-slate-300/10">
@@ -48,20 +43,7 @@ const Home = () => {
           </AnimatePresence>
         </div>
         <div className="flex w-dvw flex-col items-center justify-center">
-          <div className="z-10">
-            {...mapChallanges.map((challange) => (
-              <Link to={challange.path} key={challange.path}>
-                <div className="flex flex-col items-center justify-center gap-1 rounded-xl bg-white p-4">
-                  <div className="grid size-32 place-items-center bg-grayish">
-                    <CameraOff size={48} color="#888" />
-                  </div>
-                  {/* tags */}
-                  <DifficultyTag level={1} />
-                  <LinkButton label={challange.label} />
-                </div>
-              </Link>
-            ))}
-          </div>
+          <div className="z-10">{children}</div>
         </div>
       </motion.div>
     </>

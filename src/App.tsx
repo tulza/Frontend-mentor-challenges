@@ -1,16 +1,18 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 import QRCODECOMPONENT from "./qr-code-component/QRCODECOMPONENT";
-import Home from "./home/Home";
 import { ArrowLeft, Component, HomeIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Test from "./Template/Test";
 import LinkButton from "./common/LinkButton";
+import ProductListApp from "./product-list-with-cart/ProductListApp";
+import HomeWithChallenges from "./home/HomeWithChallenges";
 
 type Challange = { label: string; path: string; element: React.ReactNode };
 
 export const mapChallanges: Challange[] = [
   { label: "QRcode component", path: "/qr-code-component", element: <QRCODECOMPONENT /> },
+  { label: "Product List app", path: "/product-list-app", element: <ProductListApp /> },
 ];
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
         </div>
       </div>
       <Routes key={location.pathname} location={location}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeWithChallenges />} />
         {...mapChallanges.map((challange) => (
           <Route path={challange.path} element={challange.element} />
         ))}
