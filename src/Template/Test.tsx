@@ -18,7 +18,6 @@ const Test = ({ n }: { n?: number }) => {
     return count;
   };
 
-
   return (
     <div className="flex h-dvh flex-col items-center justify-center">
       <table>

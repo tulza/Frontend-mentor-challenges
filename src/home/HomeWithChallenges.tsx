@@ -1,8 +1,8 @@
+import { CameraOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { mapChallanges } from "../App";
-import { CameraOff } from "lucide-react";
-import DifficultyTag from "../common/Tag";
 import LinkButton from "../common/LinkButton";
+import DifficultyTag from "../common/Tag";
 import Home from "./Home";
 
 const HomeWithChallenges = () => {

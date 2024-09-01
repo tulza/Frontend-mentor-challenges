@@ -1,12 +1,12 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
-import QRCODECOMPONENT from "./qr-code-component/QRCODECOMPONENT";
-import { ArrowLeft, Component, HomeIcon } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, Component, HomeIcon } from "lucide-react";
 import Test from "./Template/Test";
 import LinkButton from "./common/LinkButton";
-import ProductListApp from "./product-list-with-cart/ProductListApp";
 import HomeWithChallenges from "./home/HomeWithChallenges";
+import ProductListApp from "./product-list-with-cart/ProductListApp";
+import QRCODECOMPONENT from "./qr-code-component/QRCODECOMPONENT";
 
 type Challange = { label: string; path: string; element: React.ReactNode };
 
