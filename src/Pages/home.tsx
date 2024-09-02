@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Challange, Challanges } from "../App";
 import { cn } from "../common/lib/utils";
 import styles from "./home.module.css";
-import "./twconfig.css";
 const HomePage = () => {
   // per page html background setter
   useLayoutEffect(() => {
