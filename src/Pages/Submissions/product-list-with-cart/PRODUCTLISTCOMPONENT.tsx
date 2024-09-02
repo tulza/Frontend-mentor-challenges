@@ -36,11 +36,11 @@ const PRODUCTLISTCOMPONENT = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white w-full h-max p-6 mt-2">
+        <div className="bg-white rounded-xl w-full h-max p-6 mt-2 ">
           <h3 className="font-bold text-2xl mb-2">Your Cart (7)</h3>
           <div className="border-b py-4 flex justify-between items-center">
             <div>
-              <p className="text-sm font-medium mb-2">Classic Tiramisu</p>
+              <p className="text-sm font-semibold mb-2">Classic Tiramisu</p>
               <p className="text-sm font-medium">
                 <span className="font-medium">1x</span>
                 <span className="font-medium ml-4">@ $5.50</span>
@@ -68,9 +68,10 @@ const RemoveItemButton = () => {
 const ItemCard = ({ name, category, price }: CartItem) => {
   return (
     <div>
-      <div className="w-[250px] h-60 bg-black relative rounded-lg mb-8">
+      <div className=" bg-black relative rounded-lg mb-8">
+        <img className="w-[250px] h-60" />
         <div className="bottom-0 w-40 select-none cursor-pointer h-11 rounded-full gap-2 bg-white absolute left-[50%] [translate:-50%_50%] border flex items-center justify-center">
-          <img src="product-list-with-cart/assets/images/icon-add-to-cart.svg" />
+          <img src="product-list-with-cart/assets/images/icon-add-to-cart.svg" className="pointer-events-none" />
           <p className="text-sm font-medium">Add to Cart</p>
         </div>
       </div>
