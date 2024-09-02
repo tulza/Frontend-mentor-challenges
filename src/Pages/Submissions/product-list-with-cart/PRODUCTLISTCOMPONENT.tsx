@@ -1,9 +1,12 @@
-import { useLayoutEffect } from "react";
+import { createContext, useContext, useLayoutEffect, useState } from "react";
 import { cn } from "../../../common/lib/utils";
-import data from "./data/data.json";
+import CartItems from "./components/CartItems";
+import ProductCards from "./components/ProductCards";
 import styles from "./index.module.css";
 
-export type CartItem = {
+// ***** Started on 03/09/24 *****
+
+export type ItemData = {
   image: {
     thumbnail: string;
     mobile: string;
@@ -15,6 +18,38 @@ export type CartItem = {
   price: number;
 };
 
+export type ShoppingCart = {
+  [key: number]: CartItem;
+};
+
+export type CartItem = { name: string; price: number; quantity: number; id: number };
+
+export const fixtureCartItem: ShoppingCart = {
+  12: {
+    id: 12,
+    name: "fixture",
+    price: 2.75,
+    quantity: 21,
+  },
+};
+
+type CartContextType = {
+  CartItem: ShoppingCart;
+  handleIncrementItem: (data: ItemData, id: number) => void;
+  handleDecrementItem: (id: number) => void;
+  handleDeleteFromCart: (id: number) => void;
+};
+
+const CartContext = createContext({} as CartContextType);
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+  return context;
+};
+
 const PRODUCTLISTCOMPONENT = () => {
   // per page html background setter
   useLayoutEffect(() => {
@@ -23,62 +58,68 @@ const PRODUCTLISTCOMPONENT = () => {
       document.body.className = "";
     };
   });
-  return (
-    <div className={cn("w-dvw h-dvh flex items-center flex-col", styles.redhat)}>
-      <div className="flex mt-20 w-[1440px] px-28 gap-8">
-        <div className="flex flex-col w-max gap-7">
-          <h1 className="font-bold text-[40px] text-erm">Desserts</h1>
-          <div className="flex gap-8">
-            <div className="grid grid-cols-3 gap-6 w-max">
-              {data.map((item, index) => (
-                <ItemCard key={index} {...item} />
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="bg-white rounded-xl w-full h-max p-6 mt-2 ">
-          <h3 className="font-bold text-2xl mb-2">Your Cart (7)</h3>
-          <div className="border-b py-4 flex justify-between items-center">
-            <div>
-              <p className="text-sm font-semibold mb-2">Classic Tiramisu</p>
-              <p className="text-sm font-medium">
-                <span className="font-medium">1x</span>
-                <span className="font-medium ml-4">@ $5.50</span>
-                <span className="font-bold ml-2">$5.50</span>
-              </p>
-            </div>
-            <RemoveItemButton />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-const RemoveItemButton = () => {
-  return (
-    <button className="*:fill-[var(--Rose300)] border-[var(--Rose300)] border-2 size-min rounded-full p-0.5">
-      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
-        <path d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z" />
-      </svg>
-    </button>
-  );
-};
+  const [CartItem, setCartItem] = useState({ ...fixtureCartItem } as ShoppingCart);
+  const handleIncrementItem = (data: ItemData, id: number) => {
+    setCartItem((prev) => {
+      if (CartItem[id]) {
+        return {
+          ...prev,
+          [id]: {
+            id: id,
+            name: data.name,
+            price: data.price,
+            quantity: prev[id].quantity + 1,
+          },
+        };
+      }
+      return {
+        ...prev,
+        [id]: {
+          id: id,
+          name: data.name,
+          price: data.price,
+          quantity: 1,
+        },
+      };
+    });
+  };
 
-const ItemCard = ({ name, category, price }: CartItem) => {
+  const handleDecrementItem = (id: number) => {
+    if (CartItem[id]) {
+      setCartItem((prev) => {
+        return {
+          ...prev,
+          id: {
+            id: id,
+            name: prev[id].name,
+            price: prev[id].price,
+            quantity: prev[id].quantity + 1,
+          },
+        };
+      });
+    }
+  };
+
+  const handleDeleteFromCart = (id: number) => {
+    const temp = CartItem;
+    delete temp[id];
+    setCartItem({ ...temp });
+  };
   return (
-    <div>
-      <div className=" bg-black relative rounded-lg mb-8">
-        <img className="w-[250px] h-60" />
-        <div className="bottom-0 w-40 select-none cursor-pointer h-11 rounded-full gap-2 bg-white absolute left-[50%] [translate:-50%_50%] border flex items-center justify-center">
-          <img src="product-list-with-cart/assets/images/icon-add-to-cart.svg" className="pointer-events-none" />
-          <p className="text-sm font-medium">Add to Cart</p>
-        </div>
-      </div>
-      <div className="flex flex-col py-2">
-        <p className="font-light text-sm">{category}</p>
-        <p className="font-medium">{name}</p>
-        <p className="font-medium">${price.toFixed(2)}</p>
+    <div className={cn("w-dvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
+      <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16">
+        <CartContext.Provider
+          value={{
+            CartItem,
+            handleIncrementItem,
+            handleDeleteFromCart,
+            handleDecrementItem,
+          }}
+        >
+          <ProductCards />
+          <CartItems />
+        </CartContext.Provider>
       </div>
     </div>
   );
