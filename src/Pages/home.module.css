@@ -1,0 +1,8 @@
+.html {
+  background-color: black;
+  color: white;
+}
+
+.grid64 {
+  mask-image: url("../../public/assets/grid64.svg");
+}

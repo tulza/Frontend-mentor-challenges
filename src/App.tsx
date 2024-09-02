@@ -1,18 +1,19 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import HomePage from "./Pages/home";
+import NotFound from "./Pages/NotFound";
+import PRODUCTLISTCOMPONENT from "./Pages/Submissions/product-list-with-cart/PRODUCTLISTCOMPONENT";
+import QRCODECOMPONENT from "./Pages/Submissions/qr-code-component/QRCODECOMPONENT";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Component, HomeIcon } from "lucide-react";
-import Test from "./Template/Test";
-import LinkButton from "./common/LinkButton";
-import HomeWithChallenges from "./home/HomeWithChallenges";
-import ProductListApp from "./product-list-with-cart/ProductListApp";
-import QRCODECOMPONENT from "./qr-code-component/QRCODECOMPONENT";
+export type Challange = {
+  label: string;
+  path: string;
+  element: React.ReactNode;
+  difficulty?: "Newbie" | "Junior" | "Intermediate" | "Advanced" | "Guru";
+};
 
-type Challange = { label: string; path: string; element: React.ReactNode };
-
-export const mapChallanges: Challange[] = [
-  { label: "QRcode component", path: "/qr-code-component", element: <QRCODECOMPONENT /> },
-  { label: "Product List app", path: "/product-list-app", element: <ProductListApp /> },
+export const Challanges: Challange[] = [
+  { label: "qr-code-component", path: "/qr-code-component", element: <QRCODECOMPONENT />, difficulty: "Newbie" },
+  { label: "Product-List-app", path: "/product-list-app", element: <PRODUCTLISTCOMPONENT />, difficulty: "Junior" },
 ];
 
 function App() {
@@ -20,42 +21,10 @@ function App() {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {/* back page */}
-        {location.pathname !== "/" && (
-          <div className="absolute z-[9999] flex w-full" key={location.pathname}>
-            <motion.button
-              initial={{ scale: 0, filter: "blur(64px)" }}
-              animate={{ scale: 1, filter: "blur(0px)" }}
-              exit={{ scale: 0, filter: "blur(64px)" }}
-              className="text-bold grid aspect-square size-16 origin-top-left place-items-center rounded-br-full bg-white pb-4 pr-4 text-5xl text-white shadow-lg"
-              onClick={() => history.back()}
-            >
-              <ArrowLeft className="stroke-gray-600" />
-            </motion.button>
-          </div>
-        )}
-      </AnimatePresence>
-      <div className="absolute bottom-4 z-[9999] flex w-dvw justify-center">
-        <div className="flex gap-4 rounded-full border bg-white p-2">
-          <Link to="/">
-            <LinkButton
-              icon={<HomeIcon size={20} strokeWidth={1.5} className="mr-2" />}
-              label="home"
-            />
-          </Link>
-          <LinkButton
-            icon={<Component size={20} strokeWidth={1.5} className="mr-2" />}
-            label="Components"
-          />
-        </div>
-      </div>
       <Routes key={location.pathname} location={location}>
-        <Route path="/" element={<HomeWithChallenges />} />
-        {...mapChallanges.map((challange) => (
-          <Route path={challange.path} element={challange.element} />
-        ))}
-        <Route path="*" element={<Test />} />
+        <Route path="/" element={<HomePage />} />
+        {...Challanges.map((challange) => <Route path={challange.path} element={challange.element} />)}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

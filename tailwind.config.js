@@ -4,9 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        homehl: `hsl(var(--home-highlight))`,
-        grayish: `hsl(var(--grayish))`,
-        homebg: `hsl(var(--home-background))`,
+        erm: "adf",
       },
     },
   },
