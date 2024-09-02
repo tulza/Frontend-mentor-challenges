@@ -16,9 +16,9 @@ type CartItem = {
 
 const PRODUCTLISTCOMPONENT = () => {
   return (
-    <div className={cn("w-dvw h-dvh flex items-center flex-col text-erm", styles.redhat)}>
+    <div className={cn("w-dvw h-dvh flex items-center flex-col", styles.redhat)}>
       <div className="border flex flex-col gap-7 mt-20 w-[1440px] px-28">
-        <h1 className="font-bold text-[40px]">Desserts</h1>
+        <h1 className="font-bold text-[40px] text-erm">Desserts</h1>
         <div className="grid grid-cols-3 gap-6 w-max">
           {data.map((item, index) => (
             <ItemCard key={index} {...item} />
