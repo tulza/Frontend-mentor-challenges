@@ -25,8 +25,8 @@ export type ShoppingCart = {
 export type CartItem = { name: string; price: number; quantity: number; id: number };
 
 export const fixtureCartItem: ShoppingCart = {
-  12: {
-    id: 12,
+  3: {
+    id: 3,
     name: "fixture",
     price: 2.75,
     quantity: 21,
@@ -86,15 +86,17 @@ const PRODUCTLISTCOMPONENT = () => {
   };
 
   const handleDecrementItem = (id: number) => {
-    if (CartItem[id]) {
+    if (CartItem[id] && CartItem[id].quantity === 1) {
+      handleDeleteFromCart(id);
+    } else if (CartItem[id]) {
       setCartItem((prev) => {
         return {
           ...prev,
-          id: {
+          [id]: {
             id: id,
             name: prev[id].name,
             price: prev[id].price,
-            quantity: prev[id].quantity + 1,
+            quantity: prev[id].quantity - 1,
           },
         };
       });
@@ -105,6 +107,7 @@ const PRODUCTLISTCOMPONENT = () => {
     const temp = CartItem;
     delete temp[id];
     setCartItem({ ...temp });
+    return temp;
   };
   return (
     <div className={cn("w-dvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>

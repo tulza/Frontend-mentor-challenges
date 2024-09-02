@@ -97,10 +97,28 @@ const QuantitySelectButton = ({
   removeItem: () => void;
 }) => {
   return (
-    <div className="bottom-0 w-40 select-none cursor-pointer text-white h-11 rounded-full gap-2 bg-[var(--Red)] absolute left-[50%] [translate:-50%_50%] flex items-center justify-center">
-      <button onClick={addItem}></button>
+    <div className="bottom-0 w-40 select-none px-3 cursor-pointer text-white h-11 rounded-full gap-2 bg-[var(--Red)] absolute left-[50%] [translate:-50%_50%] flex items-center justify-between">
+      <button
+        onClick={removeItem}
+        className="size-4 group border border-white rounded-full hover:bg-white grid place-items-center"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 2">
+          <path fill="#fff" className="group-hover:fill-[var(--Red)]" d="M0 .375h10v1.25H0V.375Z" />
+        </svg>
+      </button>
       {quantity}
-      <button onClick={removeItem}></button>
+      <button
+        onClick={addItem}
+        className="size-4 group border border-white rounded-full hover:bg-white grid place-items-center"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10">
+          <path
+            fill="#fff"
+            className="group-hover:fill-[var(--Red)]"
+            d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const CartItemList = ({ ...cart }: CartItem) => {
   return (
     <div className="border-b py-4 flex justify-between items-center">
       <div>
-        <p className="text-sm font-semibold mb-2">Classic Tiramisu</p>
+        <p className="text-sm font-semibold mb-2">{cart.name}</p>
         <p className="text-sm font-medium">
           <span className="font-medium">{cart.quantity}x</span>
           <span className="font-medium ml-4">@ ${cart.price.toFixed(2)}</span>
