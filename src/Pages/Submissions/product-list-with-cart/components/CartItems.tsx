@@ -8,7 +8,16 @@ const CartItems = () => {
   return (
     <div className="bg-white rounded-xl gap-6 w-full h-max p-6 flex flex-col mt-2 ">
       <h3 className="font-bold text-2xl ">Your Cart ({sumItems})</h3>
-      <Dialog>{Object.keys(CartItem).length === 0 ? <></> : <CartList />}</Dialog>
+      <Dialog>{Object.keys(CartItem).length === 0 ? <EmptyCart /> : <CartList />}</Dialog>
+    </div>
+  );
+};
+
+const EmptyCart = () => {
+  return (
+    <div className="flex flex-col w-full justify-center items-center mt-4">
+      <img className="size-32" src="product-list-with-cart\assets\images\illustration-empty-cart.svg" />
+      <p className="text-[var(--Rose500)] font-medium">Your added items will appear here</p>
     </div>
   );
 };
