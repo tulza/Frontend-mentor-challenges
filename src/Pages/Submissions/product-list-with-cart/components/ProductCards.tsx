@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, memo } from "react";
 import { cn } from "../../../../common/lib/utils";
 import { ItemData, useCart } from "../PRODUCTLISTCOMPONENT";
 import data from "../data/data.json";
-import useScreen from "../hook/useScreen";
+import useIsScreenSize from "../hook/useIsScreenSize";
 import { getPath } from "../lib/utils";
 
 const ProductCards = () => {
@@ -20,14 +20,20 @@ const ProductCards = () => {
 
 const CartCardItems = ({ data }: { data: ItemData[] }) => {
   const { CartItem } = useCart();
+  const { isDesktop } = useIsScreenSize();
   // ! move this to a new component to reuse
-  const { screen } = useScreen();
-  const isDesktop = screen.width >= 1440;
+
   return (
     <>
       {data.map((item, index) => (
         // ! REPLACE WITH MEMO SOON
-        <ItemCard key={index} metadata={item} isDesktop={isDesktop} id={index} quantities={CartItem[index]?.quantity} />
+        <ItemCardMemo
+          key={index}
+          metadata={item}
+          id={index}
+          isDesktop={isDesktop}
+          quantities={CartItem[index]?.quantity}
+        />
       ))}
     </>
   );
@@ -36,8 +42,8 @@ const CartCardItems = ({ data }: { data: ItemData[] }) => {
 const ItemCard = ({
   id,
   metadata,
-  isDesktop,
   quantities = 0,
+  isDesktop,
 }: {
   id: number;
   isDesktop?: boolean;
@@ -49,7 +55,7 @@ const ItemCard = ({
   const imagefile = isDesktop ? desktop : mobile;
   const imagepath = getPath(imagefile);
   return (
-    <div className="rounded-lg relative">
+    <div className="rounded-lg relative ">
       <div
         className={cn(
           "relative mb-8 ",
@@ -77,8 +83,7 @@ const ItemCard = ({
   );
 };
 const ItemCardMemo = memo(ItemCard, (prev, next) => {
-  console.log(next);
-  return prev.quantities === next.quantities;
+  return prev.quantities === next.quantities && prev.isDesktop === next.isDesktop;
 });
 
 interface buttonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}

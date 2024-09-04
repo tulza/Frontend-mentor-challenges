@@ -1,7 +1,6 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react";
 import { cn } from "../../../common/lib/utils";
 import CartItems from "./components/CartItems";
-import DialogContent, { DialogConfirmContent } from "./components/Dialog";
 import ProductCards from "./components/ProductCards";
 import styles from "./index.module.css";
 
