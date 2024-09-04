@@ -1,7 +1,7 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react";
 import { cn } from "../../../common/lib/utils";
 import CartItems from "./components/CartItems";
-import Dialog from "./components/Dialog";
+import DialogContent, { DialogConfirmContent } from "./components/Dialog";
 import ProductCards from "./components/ProductCards";
 import styles from "./index.module.css";
 
@@ -123,7 +123,6 @@ const PRODUCTLISTCOMPONENT = () => {
         >
           <ProductCards />
           <CartItems />
-          <Dialog open />
         </CartContext.Provider>
       </div>
     </div>

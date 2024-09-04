@@ -1,4 +1,6 @@
 import { CartItem, useCart } from "../PRODUCTLISTCOMPONENT";
+import BigButton from "./BigButton";
+import { Dialog, DialogConfirmContent, UseDialog } from "./Dialog";
 
 const CartItems = () => {
   const { CartItem } = useCart();
@@ -6,13 +8,14 @@ const CartItems = () => {
   return (
     <div className="bg-white rounded-xl w-full h-max p-6 flex flex-col gap-2 mt-2 ">
       <h3 className="font-bold text-2xl">Your Cart ({sumItems})</h3>
-      {Object.keys(CartItem).length === 0 ? <></> : <CartList />}
+      <Dialog>{Object.keys(CartItem).length === 0 ? <></> : <CartList />}</Dialog>
     </div>
   );
 };
 
 const CartList = () => {
   const { CartItem } = useCart();
+  const { handleToggle } = UseDialog();
   const totalCost = Object.values(CartItem).reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
   return (
     <>
@@ -30,9 +33,8 @@ const CartList = () => {
           This is a <strong>carbon-neutral</strong> delivery
         </p>
       </div>
-      <button className="w-full rounded-full select-none text-white grid place-items-center bg-[var(--Red)] p-4">
-        Confirm Order
-      </button>
+      <DialogConfirmContent />
+      <BigButton label="Confirm Order" onClick={handleToggle} />
     </>
   );
 };
