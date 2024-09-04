@@ -116,7 +116,7 @@ const PRODUCTLISTCOMPONENT = () => {
   };
   return (
     <div className={cn("w-lvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
-      <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16">
+      <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16 text-[var(--Rose900)]">
         <CartContext.Provider
           value={{
             CartItem,

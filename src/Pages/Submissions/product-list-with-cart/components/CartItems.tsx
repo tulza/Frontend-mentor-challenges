@@ -6,8 +6,8 @@ const CartItems = () => {
   const { CartItem } = useCart();
   const sumItems = Object.values(CartItem).reduce((acc, curr) => acc + curr.quantity, 0);
   return (
-    <div className="bg-white rounded-xl w-full h-max p-6 flex flex-col gap-2 mt-2 ">
-      <h3 className="font-bold text-2xl">Your Cart ({sumItems})</h3>
+    <div className="bg-white rounded-xl gap-6 w-full h-max p-6 flex flex-col mt-2 ">
+      <h3 className="font-bold text-2xl ">Your Cart ({sumItems})</h3>
       <Dialog>{Object.keys(CartItem).length === 0 ? <></> : <CartList />}</Dialog>
     </div>
   );
@@ -24,12 +24,13 @@ const CartList = () => {
           <CartItemList key={i} {...data} />
         ))}
       </div>
-      <div className="flex justify-between mt-6 items-center">
+      <div className="flex justify-between items-center">
         <p className="text-sm">Order total</p>
         <h3 className="font-bold text-2xl">${totalCost.toFixed(2)}</h3>
       </div>
-      <div className="bg w-full h-[52px] grid place-content-center">
-        <p className="text-sm">
+      <div className="bg w-full h-[52px] grid rounded place-content-center bg-[var(--Rose50)]">
+        <p className="text-sm whitespace-pre flex items-center">
+          <img className="mr-2" src="product-list-with-cart\assets\images\icon-carbon-neutral.svg" />
           This is a <strong>carbon-neutral</strong> delivery
         </p>
       </div>
@@ -41,17 +42,20 @@ const CartList = () => {
 
 const CartItemList = ({ ...cart }: CartItem) => {
   return (
-    <div className="border-b py-4 flex justify-between items-center">
-      <div>
-        <p className="text-sm font-semibold mb-1">{cart.name}</p>
-        <p className="text-sm font-medium">
-          <span className="font-medium">{cart.quantity}x</span>
-          <span className="font-medium ml-4">@ ${cart.price.toFixed(2)}</span>
-          <span className="font-bold ml-2">${(cart.price * cart.quantity).toFixed(2)}</span>
-        </p>
+    <>
+      <div className="flex justify-between items-center">
+        <div>
+          <p className="text-sm font-semibold mb-1">{cart.name}</p>
+          <p className="text-sm font-medium">
+            <span className="font-medium text-[var(--Red)]">{cart.quantity}x</span>
+            <span className="font-medium ml-4 text-[var(--Rose500)]">@ ${cart.price.toFixed(2)}</span>
+            <span className="font-bold ml-2">${(cart.price * cart.quantity).toFixed(2)}</span>
+          </p>
+        </div>
+        <RemoveItemButton id={cart.id} />
       </div>
-      <RemoveItemButton id={cart.id} />
-    </div>
+      <hr className="my-4" />
+    </>
   );
 };
 
