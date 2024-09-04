@@ -4,12 +4,36 @@ const CartItems = () => {
   const { CartItem } = useCart();
   const sumItems = Object.values(CartItem).reduce((acc, curr) => acc + curr.quantity, 0);
   return (
-    <div className="bg-white rounded-xl w-full h-max p-6 mt-2 ">
-      <h3 className="font-bold text-2xl mb-2">Your Cart ({sumItems})</h3>
-      {Object.values(CartItem).map((data, i) => (
-        <CartItemList key={i} {...data} />
-      ))}
+    <div className="bg-white rounded-xl w-full h-max p-6 flex flex-col gap-2 mt-2 ">
+      <h3 className="font-bold text-2xl">Your Cart ({sumItems})</h3>
+      {Object.keys(CartItem).length === 0 ? <></> : <CartList />}
     </div>
+  );
+};
+
+const CartList = () => {
+  const { CartItem } = useCart();
+  const totalCost = Object.values(CartItem).reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+  return (
+    <>
+      <div>
+        {Object.values(CartItem).map((data, i) => (
+          <CartItemList key={i} {...data} />
+        ))}
+      </div>
+      <div className="flex justify-between mt-6 items-center">
+        <p className="text-sm">Order total</p>
+        <h3 className="font-bold text-2xl">${totalCost.toFixed(2)}</h3>
+      </div>
+      <div className="bg w-full h-[52px] grid place-content-center">
+        <p className="text-sm">
+          This is a <strong>carbon-neutral</strong> delivery
+        </p>
+      </div>
+      <button className="w-full rounded-full select-none text-white grid place-items-center bg-[var(--Red)] p-4">
+        Confirm Order
+      </button>
+    </>
   );
 };
 
@@ -17,7 +41,7 @@ const CartItemList = ({ ...cart }: CartItem) => {
   return (
     <div className="border-b py-4 flex justify-between items-center">
       <div>
-        <p className="text-sm font-semibold mb-2">{cart.name}</p>
+        <p className="text-sm font-semibold mb-1">{cart.name}</p>
         <p className="text-sm font-medium">
           <span className="font-medium">{cart.quantity}x</span>
           <span className="font-medium ml-4">@ ${cart.price.toFixed(2)}</span>

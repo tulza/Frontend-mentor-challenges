@@ -1,6 +1,7 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react";
 import { cn } from "../../../common/lib/utils";
 import CartItems from "./components/CartItems";
+import Dialog from "./components/Dialog";
 import ProductCards from "./components/ProductCards";
 import styles from "./index.module.css";
 
@@ -110,7 +111,7 @@ const PRODUCTLISTCOMPONENT = () => {
     return temp;
   };
   return (
-    <div className={cn("w-dvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
+    <div className={cn("w-lvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
       <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16">
         <CartContext.Provider
           value={{
@@ -122,6 +123,7 @@ const PRODUCTLISTCOMPONENT = () => {
         >
           <ProductCards />
           <CartItems />
+          <Dialog open />
         </CartContext.Provider>
       </div>
     </div>
