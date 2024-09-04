@@ -1,4 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { getPath } from "../lib/utils";
 import { useCart } from "../PRODUCTLISTCOMPONENT";
 import BigButton from "./BigButton";
 
@@ -39,24 +40,24 @@ export const DialogConfirmContent = () => {
           <p className="text-[var(--Rose500)]">We hope you enjoy your food!</p>
         </div>
         <div className="w-[512px] *:py-6 bg-[var(--Rose50)] rounded-lg px-6">
-          {Object.values(CartItem).map((item) => (
-            <div className="border-b h-[90px] flex">
-              <img />
+          {Object.values(CartItem).map((item, i) => (
+            <div key={i} className="border-b h-[90px] flex">
+              <img src={getPath(item.image)} className="mr-4 rounded-md" />
               <div className="w-full flex justify-between items-center">
                 <div>
                   <p className="font-medium">{item.name}</p>
                   <p>
                     <span className="mr-2 text-[var(--Red)] font-medium">{item.quantity}x</span>
-                    <span className="text-[var(--Rose500)]">@ ${item.price}</span>
+                    <span className="text-[var(--Rose500)]">@ ${item.price.toFixed(2)}</span>
                   </p>
                 </div>
-                <p className="font-medium">${item.price * item.quantity}</p>
+                <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
               </div>
             </div>
           ))}
           <div className="flex justify-between items-center">
             <p className="text-[14px]">Order Total</p>
-            <strong className="text-2xl">${total}</strong>
+            <strong className="text-2xl">${total.toFixed(2)}</strong>
           </div>
         </div>
         <BigButton label="Start New Order" />

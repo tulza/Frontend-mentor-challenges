@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, memo } from "react";
 import { ItemData, useCart } from "../PRODUCTLISTCOMPONENT";
 import data from "../data/data.json";
 import useScreen from "../hook/useScreen";
+import { getPath } from "../lib/utils";
 
 const ProductCards = () => {
   return (
@@ -42,11 +43,10 @@ const ItemCard = ({
   quantities?: number;
   metadata: ItemData;
 }) => {
-  const filepath = "product-list-with-cart";
   const { desktop, mobile } = metadata.image;
   const { handleIncrementItem: AddItem, handleDecrementItem: RemoveItem } = useCart();
   const imagefile = isDesktop ? desktop : mobile;
-  const imagepath = imagefile.replace(".", filepath);
+  const imagepath = getPath(imagefile);
   return (
     <div>
       <div className="relative mb-8">

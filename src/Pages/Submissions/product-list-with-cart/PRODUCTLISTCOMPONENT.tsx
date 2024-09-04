@@ -23,7 +23,7 @@ export type ShoppingCart = {
   [key: number]: CartItem;
 };
 
-export type CartItem = { name: string; price: number; quantity: number; id: number };
+export type CartItem = { name: string; price: number; quantity: number; id: number; image: string };
 
 export const fixtureCartItem: ShoppingCart = {
   3: {
@@ -31,6 +31,7 @@ export const fixtureCartItem: ShoppingCart = {
     name: "fixture",
     price: 2.75,
     quantity: 21,
+    image: "./assets/images/image-waffle-thumbnail.jpg",
   },
 };
 
@@ -71,6 +72,7 @@ const PRODUCTLISTCOMPONENT = () => {
             name: data.name,
             price: data.price,
             quantity: prev[id].quantity + 1,
+            image: data.image.thumbnail,
           },
         };
       }
@@ -81,6 +83,7 @@ const PRODUCTLISTCOMPONENT = () => {
           name: data.name,
           price: data.price,
           quantity: 1,
+          image: data.image.thumbnail,
         },
       };
     });
@@ -98,6 +101,7 @@ const PRODUCTLISTCOMPONENT = () => {
             name: prev[id].name,
             price: prev[id].price,
             quantity: prev[id].quantity - 1,
+            image: prev[id].image,
           },
         };
       });
