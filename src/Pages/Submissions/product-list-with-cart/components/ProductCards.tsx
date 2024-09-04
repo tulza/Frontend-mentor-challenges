@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, memo } from "react";
+import { cn } from "../../../../common/lib/utils";
 import { ItemData, useCart } from "../PRODUCTLISTCOMPONENT";
 import data from "../data/data.json";
 import useScreen from "../hook/useScreen";
@@ -48,9 +49,15 @@ const ItemCard = ({
   const imagefile = isDesktop ? desktop : mobile;
   const imagepath = getPath(imagefile);
   return (
-    <div>
-      <div className="relative mb-8">
-        <img src={imagepath} className="w-[250px] rounded-lg h-60" />
+    <div className="rounded-lg relative">
+      <div
+        className={cn(
+          "relative mb-8 ",
+          quantities != 0 &&
+            "after:size-full after:top-0 after:rounded-lg after:absolute after:border after:border-[var(--Red)]"
+        )}
+      >
+        <img src={imagepath} className={cn("w-[250px] rounded-lg h-60 relative")} />
         {quantities === 0 ? (
           <AddToCartButton onClick={() => AddItem(metadata, id)} />
         ) : (
@@ -79,7 +86,7 @@ const AddToCartButton = ({ ...props }: buttonProps) => {
   return (
     <button
       {...props}
-      className="bottom-0 w-40 border-[var(--Rose400)] hover:border-[var(--Red)] hover:text-[var(--Red)] select-none cursor-pointer h-11 rounded-full gap-2 bg-white absolute left-[50%] [translate:-50%_50%] border flex items-center justify-center"
+      className="bottom-0 z-10 w-40 border-[var(--Rose400)] hover:border-[var(--Red)] hover:text-[var(--Red)] select-none cursor-pointer h-11 rounded-full gap-2 bg-white absolute left-[50%] [translate:-50%_50%] border flex items-center justify-center"
     >
       <img src="product-list-with-cart/assets/images/icon-add-to-cart.svg" className="pointer-events-none" />
       <p className="text-sm font-semibold">Add to Cart</p>
@@ -97,7 +104,7 @@ const QuantitySelectButton = ({
   removeItem: () => void;
 }) => {
   return (
-    <div className="bottom-0 w-40 select-none px-3 cursor-pointer text-white h-11 rounded-full gap-2 bg-[var(--Red)] absolute left-[50%] [translate:-50%_50%] flex items-center justify-between">
+    <div className="bottom-0 w-40 select-none z-10 px-3 text-white h-11 rounded-full gap-2 bg-[var(--Red)] absolute left-[50%] [translate:-50%_50%] flex items-center justify-between">
       <button
         onClick={removeItem}
         className="size-4 group border border-white rounded-full hover:bg-white grid place-items-center"
