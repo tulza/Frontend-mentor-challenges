@@ -20,7 +20,7 @@ type DialogContextProps = {
 
 const DialogContext = createContext<DialogContextProps>(null!);
 export const Dialog = ({ ...props }: PropsWithChildren) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleToggle = () => {
     setOpen((p) => !p);
   };
@@ -42,10 +42,10 @@ export const DialogConfirmContent = () => {
           <p className="text-[var(--Rose500)]">We hope you enjoy your food!</p>
         </div>
         <div className="w-[512px] bg-[var(--Rose50)] rounded-lg px-6 pr-0">
-          <div className={cn("max-h-[300px] *:py-2 my-4 overflow-y-auto pr-4 mr-2", styles.scroll)}>
+          <div className={cn("max-h-[240px] mt-4 overflow-y-auto pr-4 first:*:pt-0 *:py-4 mr-2", styles.scroll)}>
             {Object.values(CartItem).map((item, i) => (
-              <div key={i} className="border-b h-[90px] flex  ">
-                <img src={getPath(item.image)} className="mr-4 rounded-md" />
+              <div key={i} className="border-b flex items-center">
+                <img src={getPath(item.image)} className="h-12 mr-4 rounded-md" />
                 <div className="w-full flex justify-between items-center">
                   <div>
                     <p className="font-medium">{item.name}</p>
@@ -59,7 +59,7 @@ export const DialogConfirmContent = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-between items-center p-6">
+          <div className="flex justify-between items-center pr-6 py-6">
             <p className="text-[14px]">Order Total</p>
             <strong className="text-2xl">${total.toFixed(2)}</strong>
           </div>
