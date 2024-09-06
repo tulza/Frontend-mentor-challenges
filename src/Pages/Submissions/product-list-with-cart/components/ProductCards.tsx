@@ -10,7 +10,7 @@ const ProductCards = () => {
     <div className="flex flex-col w-max gap-7">
       <h1 className="font-bold text-[40px] text-erm">Desserts</h1>
       <div className="flex gap-8">
-        <div className="grid grid-cols-3 gap-6 w-max">
+        <div className="grid sm:grid-cols-3 gap-6 w-max">
           <CartCardItems data={data} />
         </div>
       </div>
@@ -63,7 +63,11 @@ const ItemCard = ({
             "after:size-full after:top-0 after:rounded-lg after:absolute after:border after:border-[var(--Red)] after:pointer-events-none"
         )}
       >
-        <img src={imagepath} className={cn("w-[250px] rounded-lg h-60 relative")} draggable="false" />
+        <img
+          src={imagepath}
+          className={cn("sm:h-60 h-[212px] rounded-lg relative sm:aspect-square aspect-[3/2]")}
+          draggable="false"
+        />
         {quantities === 0 ? (
           <AddToCartButton onClick={() => AddItem(metadata, id)} />
         ) : (

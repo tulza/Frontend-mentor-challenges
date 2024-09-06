@@ -61,7 +61,8 @@ const PRODUCTLISTCOMPONENT = () => {
     };
   });
 
-  const [CartItem, setCartItem] = useState({ ...fixtureCartItem } as ShoppingCart);
+  // const [CartItem, setCartItem] = useState({ ...fixtureCartItem } as ShoppingCart);
+  const [CartItem, setCartItem] = useState({} as ShoppingCart);
   const handleIncrementItem = (data: ItemData, id: number) => {
     setCartItem((prev) => {
       if (CartItem[id]) {
@@ -119,8 +120,8 @@ const PRODUCTLISTCOMPONENT = () => {
     setCartItem({} as ShoppingCart);
   };
   return (
-    <div className={cn("w-lvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
-      <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16 text-[var(--Rose900)]">
+    <div className={cn("sm:w-dvw h-dvh flex items-center flex-col ", styles.redhat)}>
+      <div className="flex sm:mt-20 sm:flex-row flex-col sm:w-[1440px] items-center sm:items-start p-6 sm:px-28 gap-8 sm:mb-16 text-[var(--Rose900)]">
         <CartContext.Provider
           value={{
             CartItem,

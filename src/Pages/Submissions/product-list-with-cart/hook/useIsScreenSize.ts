@@ -7,7 +7,7 @@ const useIsScreenSize = () => {
   const { screen: size } = useScreen();
 
   const onResize = () => {
-    if (size.width >= 768) {
+    if (size.width >= 640) {
       if (screen.isDesktop) return; // No need to update state if it's already correct
       setScreen({ ...def, isDesktop: true });
     } else {

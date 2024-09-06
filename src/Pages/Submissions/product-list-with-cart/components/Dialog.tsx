@@ -20,7 +20,7 @@ type DialogContextProps = {
 
 const DialogContext = createContext<DialogContextProps>(null!);
 export const Dialog = ({ ...props }: PropsWithChildren) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleToggle = () => {
     setOpen((p) => !p);
   };
@@ -41,7 +41,7 @@ export const DialogConfirmContent = () => {
           <h3 className="text-[40px] font-bold ">Order Confirmed</h3>
           <p className="text-[var(--Rose500)]">We hope you enjoy your food!</p>
         </div>
-        <div className="w-[512px] bg-[var(--Rose50)] rounded-lg px-6 pr-0">
+        <div className="sm:w-[512px] bg-[var(--Rose50)] rounded-lg px-6 pr-0">
           <div className={cn("max-h-[240px] mt-4 overflow-y-auto pr-4 first:*:pt-0 *:py-4 mr-2", styles.scroll)}>
             {Object.values(CartItem).map((item, i) => (
               <div key={i} className="border-b flex items-center">
