@@ -5,13 +5,13 @@ const Transition = ({ page }: { page: ReactNode }) => {
     <>
       <div className="*:w-dvw *:h-dvh overflow-hidden *:fixed *:select-none *:z-[9999] *:pointer-events-none">
         <motion.div
-          className="origin-bottom bg-white/[0.001]"
+          className="origin-bottom"
           initial={{ backdropFilter: "blur(0px)", background: "#0000" }}
           animate={{ backdropFilter: "blur(0px)", background: "#0000" }}
           exit={{ backdropFilter: "blur(16px)", background: "#000" }}
         />
         <motion.div
-          className="origin-top bg-white/[0.001]"
+          className="origin-top"
           initial={{ backdropFilter: "blur(16px)", background: "#000" }}
           animate={{ backdropFilter: "blur(0px)", background: "#0000" }}
           exit={{ backdropFilter: "blur(0px)", background: "#0000" }}

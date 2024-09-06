@@ -60,10 +60,10 @@ const ItemCard = ({
         className={cn(
           "relative mb-8 ",
           quantities != 0 &&
-            "after:size-full after:top-0 after:rounded-lg after:absolute after:border after:border-[var(--Red)]"
+            "after:size-full after:top-0 after:rounded-lg after:absolute after:border after:border-[var(--Red)] after:pointer-events-none"
         )}
       >
-        <img src={imagepath} className={cn("w-[250px] rounded-lg h-60 relative")} />
+        <img src={imagepath} className={cn("w-[250px] rounded-lg h-60 relative")} draggable="false" />
         {quantities === 0 ? (
           <AddToCartButton onClick={() => AddItem(metadata, id)} />
         ) : (

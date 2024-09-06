@@ -39,6 +39,7 @@ type CartContextType = {
   handleIncrementItem: (data: ItemData, id: number) => void;
   handleDecrementItem: (id: number) => void;
   handleDeleteFromCart: (id: number) => void;
+  handleClearCart: () => void;
 };
 
 const CartContext = createContext({} as CartContextType);
@@ -113,6 +114,10 @@ const PRODUCTLISTCOMPONENT = () => {
     setCartItem({ ...temp });
     return temp;
   };
+
+  const handleClearCart = () => {
+    setCartItem({} as ShoppingCart);
+  };
   return (
     <div className={cn("w-lvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
       <div className="flex mt-20 w-[1440px] px-28 gap-8 mb-16 text-[var(--Rose900)]">
@@ -122,6 +127,7 @@ const PRODUCTLISTCOMPONENT = () => {
             handleIncrementItem,
             handleDeleteFromCart,
             handleDecrementItem,
+            handleClearCart,
           }}
         >
           <ProductCards />
