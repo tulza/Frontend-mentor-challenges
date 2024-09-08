@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { cn } from "../../../../common/lib/utils";
 import styles from "../index.module.css";
@@ -20,7 +21,7 @@ type DialogContextProps = {
 
 const DialogContext = createContext<DialogContextProps>(null!);
 export const Dialog = ({ ...props }: PropsWithChildren) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const handleToggle = () => {
     setOpen((p) => !p);
   };
@@ -30,48 +31,64 @@ export const Dialog = ({ ...props }: PropsWithChildren) => {
 export const DialogConfirmContent = () => {
   const { CartItem, handleClearCart } = useCart();
   const { open, handleToggle } = UseDialog();
-  if (!open) return;
+
   const total = Object.values(CartItem).reduce((a, c) => a + c.price * c.quantity, 0);
   return (
-    <div className="z-10 fixed grid left-0 top-0 place-items-center w-dvw h-dvh text-[var(--Rose900)]">
-      <div className="w-full h-full bg-black/50" onMouseDown={handleToggle} />
-      <div className="bg-white absolute flex rounded-xl flex-col  p-10 *:mb-8">
-        <img src="product-list-with-cart\assets\images\icon-order-confirmed.svg" className="w-12 !mb-4" />
-        <div>
-          <h3 className="text-[40px] font-bold ">Order Confirmed</h3>
-          <p className="text-[var(--Rose500)]">We hope you enjoy your food!</p>
-        </div>
-        <div className="sm:w-[512px] bg-[var(--Rose50)] rounded-lg px-6 pr-0">
-          <div className={cn("max-h-[240px] mt-4 overflow-y-auto pr-4 first:*:pt-0 *:py-4 mr-2", styles.scroll)}>
-            {Object.values(CartItem).map((item, i) => (
-              <div key={i} className="border-b flex items-center">
-                <img src={getPath(item.image)} className="h-12 mr-4 rounded-md" />
-                <div className="w-full flex justify-between items-center">
-                  <div>
-                    <p className="font-medium">{item.name}</p>
-                    <p>
-                      <span className="mr-2 text-[var(--Red)] font-medium">{item.quantity}x</span>
-                      <span className="text-[var(--Rose500)]">@ ${item.price.toFixed(2)}</span>
-                    </p>
+    <AnimatePresence mode="wait">
+      {open && (
+        <div className="z-10 fixed grid left-0 top-0 place-items-center w-dvw h-dvh text-[var(--Rose900)]">
+          <motion.div
+            className="w-full h-full bg-black/50"
+            onMouseDown={handleToggle}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+          <motion.div
+            className="bg-white absolute w-full sm:w-auto flex bottom-0 sm:bottom-auto sm:rounded-xl rounded-t-xl flex-col p-10 *:mb-8"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.1 }}
+          >
+            <img src="product-list-with-cart\assets\images\icon-order-confirmed.svg" className="w-12 !mb-4" />
+            <div>
+              <h3 className="text-[40px] font-bold ">Order Confirmed</h3>
+              <p className="text-[var(--Rose500)]">We hope you enjoy your food!</p>
+            </div>
+            <div className="sm:w-[512px]  bg-[var(--Rose50)] rounded-lg px-6 pr-0">
+              <div className={cn("max-h-[240px] mt-4 overflow-y-auto pr-4 first:*:pt-0 *:py-4 mr-2", styles.scroll)}>
+                {Object.values(CartItem).map((item, i) => (
+                  <div key={i} className="border-b flex items-center">
+                    <img src={getPath(item.image)} className="h-12 mr-4 rounded-md" />
+                    <div className="w-full flex justify-between items-center">
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        <p>
+                          <span className="mr-2 text-[var(--Red)] font-medium">{item.quantity}x</span>
+                          <span className="text-[var(--Rose500)]">@ ${item.price.toFixed(2)}</span>
+                        </p>
+                      </div>
+                      <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
                   </div>
-                  <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="flex justify-between items-center pr-6 py-6">
-            <p className="text-[14px]">Order Total</p>
-            <strong className="text-2xl">${total.toFixed(2)}</strong>
-          </div>
+              <div className="flex justify-between items-center pr-6 py-6">
+                <p className="text-[14px]">Order Total</p>
+                <strong className="text-2xl">${total.toFixed(2)}</strong>
+              </div>
+            </div>
+            <BigButton
+              label="Start New Order"
+              onClick={() => {
+                handleToggle();
+                handleClearCart();
+              }}
+            />
+          </motion.div>
         </div>
-        <BigButton
-          label="Start New Order"
-          onClick={() => {
-            handleToggle();
-            handleClearCart();
-          }}
-        />
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };

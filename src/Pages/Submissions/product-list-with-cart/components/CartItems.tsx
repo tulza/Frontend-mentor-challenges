@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { CartItem, useCart } from "../PRODUCTLISTCOMPONENT";
 import BigButton from "./BigButton";
 import { Dialog, DialogConfirmContent, UseDialog } from "./Dialog";
@@ -29,9 +30,11 @@ const CartList = () => {
   return (
     <>
       <div>
-        {Object.values(CartItem).map((data, i) => (
-          <CartItemList key={i} {...data} />
-        ))}
+        <AnimatePresence>
+          {Object.values(CartItem).map((data) => (
+            <CartItemList key={data.id} {...data} />
+          ))}
+        </AnimatePresence>
       </div>
       <div className="flex justify-between items-center">
         <p className="text-sm">Order total</p>
@@ -51,7 +54,7 @@ const CartList = () => {
 
 const CartItemList = ({ ...cart }: CartItem) => {
   return (
-    <>
+    <motion.div exit={{ height: 0, opacity: 0, filter: "blur(4px)" }} className="will-change-[height,filter,opacity]">
       <div className="flex justify-between items-center">
         <div>
           <p className="text-sm font-semibold mb-1">{cart.name}</p>
@@ -64,7 +67,7 @@ const CartItemList = ({ ...cart }: CartItem) => {
         <RemoveItemButton id={cart.id} />
       </div>
       <hr className="my-4" />
-    </>
+    </motion.div>
   );
 };
 

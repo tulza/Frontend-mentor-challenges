@@ -120,7 +120,7 @@ const PRODUCTLISTCOMPONENT = () => {
     setCartItem({} as ShoppingCart);
   };
   return (
-    <div className={cn("sm:w-dvw h-dvh flex items-center flex-col ", styles.redhat)}>
+    <div className={cn("sm:w-dvw h-dvh flex items-center flex-col overflow-x-hidden", styles.redhat)}>
       <div className="flex sm:mt-20 sm:flex-row flex-col sm:w-[1440px] items-center sm:items-start p-6 sm:px-28 gap-8 sm:mb-16 text-[var(--Rose900)]">
         <CartContext.Provider
           value={{
